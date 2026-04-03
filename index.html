@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>David Carrillo Aguilera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500;600&family=DM+Sans:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:          #ffffff;
+  --bg2:         #faf8f5;
+  --bg3:         #f2ede7;
+  --border:      rgba(110,65,25,0.09);
+  --border2:     rgba(110,65,25,0.17);
+  --text:        #1c1008;
+  --muted:       #7a6455;
+  --faint:       #b8a898;
+  --accent:      #6b3f1e;
+  --accent-soft: #9b6a45;
+  --glow:        rgba(139,90,45,0.14);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Instrument Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 300;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* AMBIENT GLOW */
+.hero-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 70% 60% at 65% 40%, rgba(180,120,60,0.10) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 20% 60%, rgba(160,100,40,0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero { position: relative; z-index: 1; }
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 0 48px;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(24px) saturate(1.8);
+  -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  border-bottom: 0.5px solid var(--border);
+}
+
+.nav-name {
+  font-family: 'Instrument Sans', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links { display: flex; gap: 32px; list-style: none; }
+
+.nav-links a {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* HERO */
+.hero-wrap { position: relative; overflow: hidden; background: var(--bg); }
+
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 460px;
+  gap: 0;
+  align-items: center;
+  padding: 100px 48px 80px;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards 0.1s;
+}
+
+.eyebrow-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2.5s ease infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+.hero-left {
+  padding-right: 80px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards 0.05s;
+}
+
+.hero-title {
+  font-family: 'DM Sans', -apple-system, 'SF Pro Display', system-ui, sans-serif;
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 200;
+  line-height: 1.0;
+  letter-spacing: -0.045em;
+  color: var(--text);
+  margin-bottom: 4px;
+  text-shadow: 0 2px 40px rgba(139,90,45,0.10);
+}
+
+.hero-title-last {
+  font-family: 'DM Sans', -apple-system, 'SF Pro Display', system-ui, sans-serif;
+  font-size: clamp(52px, 6vw, 88px);
+  font-weight: 200;
+  line-height: 1.0;
+  letter-spacing: -0.045em;
+  color: var(--text);
+  margin-bottom: 36px;
+  text-shadow: 0 2px 40px rgba(139,90,45,0.10);
+}
+
+.hero-bio {
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 460px;
+  margin-bottom: 44px;
+  letter-spacing: -0.01em;
+}
+
+.hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 11px 22px;
+  border-radius: 980px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 24px rgba(107,63,30,0.25); }
+.btn-primary:hover { background: #7a4a22; transform: translateY(-1px); box-shadow: 0 6px 32px rgba(107,63,30,0.35); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 0.5px solid var(--border2);
+}
+.btn-ghost:hover { color: var(--text); border-color: rgba(110,65,25,0.3); transform: translateY(-1px); }
+
+/* HERO PHOTO */
+.hero-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.5s;
+}
+
+.photo-frame {
+  position: relative;
+  width: 420px;
+  height: 520px;
+}
+
+.photo-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  border: 0.5px solid var(--border2);
+  box-shadow: 0 32px 80px rgba(107,63,30,0.18), 0 0 0 1px rgba(139,90,45,0.07), 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* STATS */
+.stats-strip {
+  overflow: hidden;
+  border-top: 0.5px solid var(--border);
+  border-bottom: 0.5px solid var(--border);
+  margin-top: 60px;
+  background: var(--bg2);
+  position: relative;
+}
+
+.stats-strip::before,
+.stats-strip::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+.stats-strip::before { left: 0; background: linear-gradient(to right, var(--bg2), transparent); }
+.stats-strip::after  { right: 0; background: linear-gradient(to left, var(--bg2), transparent); }
+
+.stats-track {
+  display: flex;
+  width: max-content;
+  animation: ticker 18s linear infinite;
+}
+
+.stats-track:hover { animation-play-state: paused; }
+
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.stat-cell {
+  padding: 40px 72px;
+  border-right: 0.5px solid var(--border);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.stat-num {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 44px;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.stat-num em { font-style: normal; color: var(--accent); }
+
+.stat-desc {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--faint);
+  line-height: 1.6;
+}
+
+/* SECTIONS */
+.section {
+  padding: 88px 48px;
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.section-divider { height: 0.5px; background: var(--border); }
+
+.eyebrow-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 18px;
+}
+
+.section-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(30px, 3.5vw, 46px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+
+.section-sub {
+  font-size: 17px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 480px;
+  margin-bottom: 52px;
+}
+
+/* PROJECTS */
+.projects-list { display: flex; flex-direction: column; }
+
+.project-row {
+  display: grid;
+  grid-template-columns: 44px 1fr 24px;
+  gap: 28px;
+  align-items: start;
+  padding: 36px 0;
+  border-bottom: 0.5px solid var(--border);
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-row:first-child { border-top: 0.5px solid var(--border); }
+
+.project-row-expanded {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 28px;
+  padding: 36px 0;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.project-row-expanded:first-child { border-top: 0.5px solid var(--border); }
+
+.proj-num {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--faint);
+  padding-top: 4px;
+}
+
+.proj-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 10px;
+  transition: color 0.2s;
+}
+
+.project-row:hover .proj-title { color: var(--accent); }
+
+.proj-desc {
+  font-size: 15.5px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 16px;
+  max-width: 620px;
+}
+
+.proj-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+
+.proj-tag {
+  font-size: 11px;
+  font-weight: 500;
+  padding: 3px 11px;
+  border-radius: 980px;
+  background: var(--bg3);
+  color: var(--faint);
+  border: 0.5px solid var(--border);
+}
+
+.proj-tag.featured {
+  background: rgba(107,63,30,0.08);
+  color: var(--accent);
+  border-color: rgba(107,63,30,0.2);
+}
+
+.proj-arrow {
+  font-size: 14px;
+  color: var(--faint);
+  transition: color 0.2s, transform 0.2s;
+  padding-top: 4px;
+}
+
+.project-row:hover .proj-arrow { color: var(--accent); transform: translate(2px,-2px); }
+
+/* Project logo pill */
+.proj-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.proj-logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+}
+
+/* Gallery */
+.proj-gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.proj-gallery-img {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 0.5px solid var(--border);
+}
+
+.proj-gallery-img img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.proj-gallery-img:hover img { transform: scale(1.03); }
+
+.proj-gallery-caption {
+  font-size: 10.5px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+  margin-top: 7px;
+  padding-left: 2px;
+}
+
+/* EXPERIENCE */
+.exp-list { display: flex; flex-direction: column; }
+
+.exp-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 48px;
+  padding: 40px 0;
+  border-bottom: 0.5px solid var(--border);
+  align-items: start;
+}
+
+.exp-row:first-child { border-top: 0.5px solid var(--border); }
+
+.exp-meta {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--faint);
+  line-height: 1.7;
+  padding-top: 4px;
+}
+
+/* Company logo in experience */
+.exp-logo {
+  display: block;
+  height: 64px;
+  width: auto;
+  object-fit: contain;
+  object-position: left center;
+  margin-left: 0;
+  margin-right: auto;
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+.exp-company {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.exp-role {
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 14px;
+}
+
+.exp-desc {
+  font-size: 15.5px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.78;
+}
+
+/* SKILLS */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.5px;
+  background: var(--border);
+  border: 0.5px solid var(--border);
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.skill-cell {
+  background: var(--bg);
+  padding: 28px 30px;
+  transition: background 0.2s;
+}
+
+.skill-cell:hover { background: var(--bg2); }
+
+.skill-category {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  margin-bottom: 14px;
+}
+
+.skill-items { display: flex; flex-wrap: wrap; gap: 5px; }
+
+.skill-pill {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--muted);
+  background: var(--bg3);
+  border: 0.5px solid var(--border);
+  padding: 5px 14px;
+  border-radius: 980px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.skill-pill:hover { color: var(--text); border-color: var(--border2); }
+
+/* CONTACT */
+.contact-bg {
+  background: var(--bg2);
+  border-top: 0.5px solid var(--border);
+  padding: 96px 48px;
+}
+
+.contact-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.contact-title {
+  font-family: 'Instrument Serif', Georgia, serif;
+  font-size: clamp(30px, 3.5vw, 48px);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 18px;
+}
+
+.contact-title em { font-style: italic; color: var(--accent); }
+
+.contact-sub {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.contact-links { display: flex; flex-direction: column; }
+
+.contact-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 0.5px solid var(--border);
+  text-decoration: none;
+  transition: all 0.2s;
+}
+
+.contact-link:first-child { border-top: 0.5px solid var(--border); }
+
+.contact-link-type {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--faint);
+  transition: color 0.2s;
+}
+
+.contact-link-val {
+  font-size: 16px;
+  font-weight: 300;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.contact-link:hover .contact-link-type { color: var(--accent-soft); }
+.contact-link:hover .contact-link-val  { color: var(--accent); }
+
+/* FOOTER */
+footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 48px;
+  border-top: 0.5px solid var(--border);
+}
+
+.footer-copy {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--faint);
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 100px 24px 60px; gap: 60px; }
+  .hero-left { padding-right: 0; }
+  .hero-right { justify-content: flex-start; }
+  .photo-frame { width: 320px; height: 400px; }
+  .stats-strip { grid-template-columns: 1fr; }
+  .section { padding: 64px 24px; }
+  .exp-row { grid-template-columns: 1fr; gap: 12px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 48px; }
+  .contact-bg { padding: 64px 24px; }
+  .project-row { grid-template-columns: 36px 1fr 20px; }
+  .proj-gallery { grid-template-columns: 1fr; }
+  nav { padding: 0 24px; }
+  footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="#">David Carrillo</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero-wrap">
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-title">David Carrillo</div>
+      <div class="hero-title-last">Aguilera</div>
+      <p class="hero-bio">Economics and international business graduate, now deep into ML, data engineering, and AI systems. Entrepreneurial by nature — drawn to the bridge between business strategy and AI-driven products.</p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">See my work</a>
+        <a href="https://linkedin.com/in/davidcarrilloaguilera" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+        <a href="https://github.com/davidcarrilloag" target="_blank" class="btn btn-ghost">GitHub ↗</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="photo-frame">
+        <div class="photo-wrap">
+          <img src="assets/images/myself.png" alt="David Carrillo Aguilera" />
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-track">
+    <div class="stat-cell">
+      <div class="stat-num">€1<em>M+</em></div>
+      <div class="stat-desc">European projects managed at Anova IT Consulting</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">Top <em>10%</em></div>
+      <div class="stat-desc">IE Advanced Tech Track — invitation only</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num"><em>🏆</em> 2025</div>
+      <div class="stat-desc">Winner, BMC Helix Agentic AI Hackathon</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">+2,<em>000</em></div>
+      <div class="stat-desc">SMEs assisted in internationalisation & sustainability</div>
+    </div>
+    <!-- duplicate for seamless loop -->
+    <div class="stat-cell">
+      <div class="stat-num">€1<em>M+</em></div>
+      <div class="stat-desc">European projects managed at Anova IT Consulting</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">Top <em>10%</em></div>
+      <div class="stat-desc">IE Advanced Tech Track — invitation only</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num"><em>🏆</em> 2025</div>
+      <div class="stat-desc">Winner, BMC Helix Agentic AI Hackathon</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">+2,<em>000</em></div>
+      <div class="stat-desc">SMEs assisted in internationalisation & sustainability</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="section" id="projects">
+  <p class="eyebrow-label">Selected work</p>
+  <h2 class="section-title">Things I've built.</h2>
+  <p class="section-sub">From agentic AI systems to end-to-end ML pipelines — real projects, real decisions, real code.</p>
+  <div class="projects-list">
+
+    <!-- PROJECT 01: VenturePulse -->
+    <a class="project-row" href="https://github.com/davidcarrilloag/mlops-venturepulse" target="_blank">
+      <span class="proj-num">01</span>
+      <div class="proj-body">
+        <div class="proj-logo-row">
+          <img src="assets/images/venturepulse_logo.png" alt="VenturePulse" class="proj-logo" style="height: 32px;" />
+        </div>
+        <h3 class="proj-title">VenturePulse</h3>
+        <p class="proj-desc">ML-powered startup traction prediction platform. Scores startups on their probability of achieving high traction within 18 months — helping investors cut through noise and founders reach the right people. End-to-end MLOps pipeline from ingestion to deployment and monitoring.</p>
+        <div class="proj-tags">
+          <span class="proj-tag featured">MLOps</span>
+          <span class="proj-tag featured">Startup</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">MLflow</span>
+          <span class="proj-tag">FastAPI</span>
+          <span class="proj-tag">Docker</span>
+        </div>
+      </div>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+    <!-- PROJECT 02: BMC Helix -->
+    <div class="project-row project-row-expanded">
+      <span class="proj-num">02</span>
+      <div class="proj-body">
+        <div class="proj-logo-row">
+          <img src="assets/images/bmchelixlogo.png" alt="BMC Helix" class="proj-logo" style="height: 32px;" />
+        </div>
+        <h3 class="proj-title">Proactive Security Orchestration Agent (Winner 2025)</h3>
+        <p class="proj-desc">Built an agentic AI system on top of BMC Helix that autonomously monitors IT infrastructure, detects anomalies, and orchestrates incident responses — without human intervention. The agent continuously ingests telemetry data across services, correlates signals to identify potential threats before they escalate, and triggers automated remediation workflows (ticket creation, service restarts, escalation routing). Designed around a multi-agent architecture where a coordinator agent delegates to specialized sub-agents for log analysis, risk scoring, and action execution. Won first place at IE University, Madrid (2025).</p>
+        <div class="proj-tags" style="margin-bottom: 22px;">
+          <span class="proj-tag featured">Agentic AI</span>
+          <span class="proj-tag featured">Hackathon Winner</span>
+          <span class="proj-tag">Orchestration</span>
+          <span class="proj-tag">Security</span>
+        </div>
+        <div class="proj-gallery">
+          <div class="proj-gallery-img">
+            <img src="assets/images/bmchelix1.jpg" alt="BMC Helix Hackathon — award ceremony" />
+            <p class="proj-gallery-caption">Award ceremony · IE University · Madrid</p>
+          </div>
+          <div class="proj-gallery-img">
+            <img src="assets/images/bmchelix2.jpg" alt="BMC Helix Hackathon — during the event" />
+            <p class="proj-gallery-caption">During the hackathon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 03: AutoTrader -->
+    <a class="project-row" href="https://github.com/davidcarrilloag/python-2-group-project" target="_blank">
+      <span class="proj-num">03</span>
+      <div class="proj-body">
+        <div class="proj-logo-row">
+          <img src="assets/images/autotrader.png" alt="AutoTrader" class="proj-logo" />
+        </div>
+        <h3 class="proj-title">AutoTrader</h3>
+        <p class="proj-desc">Interactive car marketplace app built with Python and Streamlit. Lets users search, filter, and explore vehicle listings with dynamic visualisations — price distributions, mileage trends, and brand comparisons. Deployed as a live web app, demonstrating end-to-end data product development from data wrangling to a polished user-facing interface.</p>
+        <div class="proj-tags">
+          <span class="proj-tag featured">Streamlit</span>
+          <span class="proj-tag featured">Data App</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Pandas</span>
+          <span class="proj-tag">Visualisation</span>
+        </div>
+      </div>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+    <!-- PROJECT 04: Madrid Housing -->
+    <a class="project-row" href="https://github.com/davidcarrilloag/madrid_housing_engine" target="_blank">
+      <span class="proj-num">04</span>
+      <div class="proj-body">
+        <div class="proj-logo-row">
+          <img src="assets/images/housinglogo.png" alt="Madrid Housing Decision Engine" class="proj-logo" />
+        </div>
+        <h3 class="proj-title">Madrid Housing Decision Engine</h3>
+        <p class="proj-desc">Full pipeline architecture for residential property analysis in Madrid. Raw listing data flows through NiFi for ingestion, is stored in MinIO as a data lake, processed at scale with Spark, and surfaced through a decision engine that estimates fair prices and flags undervalued properties — built end-to-end with production-grade data infrastructure.</p>
+        <div class="proj-tags">
+          <span class="proj-tag featured">Full Pipeline</span>
+          <span class="proj-tag featured">Real Estate</span>
+          <span class="proj-tag">Spark</span>
+          <span class="proj-tag">MinIO</span>
+          <span class="proj-tag">NiFi</span>
+          <span class="proj-tag">Python</span>
+          <span class="proj-tag">Pandas</span>
+        </div>
+      </div>
+      <span class="proj-arrow">↗</span>
+    </a>
+
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- EXPERIENCE -->
+<div class="section" id="experience">
+  <p class="eyebrow-label">Experience</p>
+  <h2 class="section-title">Where I've been.</h2>
+  <div class="exp-list">
+
+    <div class="exp-row">
+      <div class="exp-meta">2025 — 2026<br>Madrid, Spain</div>
+      <div>
+        <img src="assets/images/ielogo.png" alt="IE University" class="exp-logo" />
+        <p class="exp-company">IE University</p>
+        <p class="exp-role">MBDS · Advanced Tech Track · GPA 3.7 / 4</p>
+        <p class="exp-desc">The Master in Business Analytics and Data Science at IE University is a technically rigorous program covering the full data science stack — from statistical modelling and machine learning to data engineering, cloud infrastructure, and AI product development. The curriculum bridges technical depth with business application, preparing graduates to lead data-driven decisions in real organisations.<br><br>Selected for the Advanced Tech Track, an invitation-only stream for the top ~10% of the cohort. The ATT goes significantly deeper into advanced ML, MLOps, large-scale data systems, and agentic AI — taught by senior industry practitioners including IBMers and AI researchers. It runs in parallel to the main programme and is designed for students who want to operate at the frontier of applied AI.</p>
+        <img src="assets/images/ie.jpg" alt="IE University" style="margin-top: 20px; width: 100%; max-width: 480px; border-radius: 8px; border: 0.5px solid var(--border);" />
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <div class="exp-meta">Sep 2024 — May 2025<br>Alcalá de Henares</div>
+      <div>
+        <img src="assets/images/anovalogo.png" alt="Anova IT Consulting" class="exp-logo" />
+        <p class="exp-company">Anova IT Consulting</p>
+        <p class="exp-role">Strategic Consulting Intern</p>
+        <p class="exp-desc">Managed €1M+ in European-funded digital transformation programs (EOI, FUNDAE) across 2,000+ SMEs in Spain. Designed internationalization and sustainability programs. Led market research on technology adoption barriers with a team of five researchers.</p>
+        <div class="proj-gallery" style="margin-top: 20px; max-width: 480px;">
+          <div class="proj-gallery-img">
+            <img src="assets/images/anova1.jpeg" alt="Anova IT Consulting" />
+          </div>
+          <div class="proj-gallery-img">
+            <img src="assets/images/anova2.jpg" alt="Anova IT Consulting" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <div class="exp-meta">2023 — 2024<br>Dublin, Ireland</div>
+      <div>
+        <img src="assets/images/dculogo.png" alt="Dublin City University" class="exp-logo" style="height: 90px;" />
+        <p class="exp-company">Dublin City University</p>
+        <p class="exp-role">Erasmus+ · GPA 9.2 / 10</p>
+        <p class="exp-desc">Exchange year at DCU Business School, focused on international economics, strategy, and data-driven decision-making. Graduated top of exchange cohort.</p>
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <div class="exp-meta">2021 — 2025<br>Alcalá de Henares</div>
+      <div>
+        <img src="assets/images/uahlogo.png" alt="Universidad de Alcalá" class="exp-logo" />
+        <p class="exp-company">Universidad de Alcalá</p>
+        <p class="exp-role">BSc Economics & International Business</p>
+        <p class="exp-desc">Focused on internationalization strategy, market expansion, and sustainability. Bachelor's Thesis (10/10): how Spanish SMEs can implement sustainable practices and internationalization strategies.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section-divider"></div>
+
+<!-- SKILLS -->
+<div class="section" id="skills">
+  <p class="eyebrow-label">Toolkit</p>
+  <h2 class="section-title">What I work with.</h2>
+  <p class="section-sub">The stack behind the projects.</p>
+  <div class="skills-grid">
+    <div class="skill-cell">
+      <p class="skill-category">Machine Learning</p>
+      <div class="skill-items">
+        <span class="skill-pill">Scikit-learn</span>
+        <span class="skill-pill">XGBoost</span>
+        <span class="skill-pill">LightGBM</span>
+        <span class="skill-pill">Random Forest</span>
+        <span class="skill-pill">Boosting</span>
+        <span class="skill-pill">SHAP</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">MLOps & Infra</p>
+      <div class="skill-items">
+        <span class="skill-pill">MLflow</span>
+        <span class="skill-pill">Docker</span>
+        <span class="skill-pill">FastAPI</span>
+        <span class="skill-pill">DVC</span>
+        <span class="skill-pill">GitHub Actions</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Data Engineering</p>
+      <div class="skill-items">
+        <span class="skill-pill">Spark</span>
+        <span class="skill-pill">MinIO</span>
+        <span class="skill-pill">NiFi</span>
+        <span class="skill-pill">MongoDB</span>
+        <span class="skill-pill">SQL</span>
+        <span class="skill-pill">Pandas</span>
+        <span class="skill-pill">NumPy</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Languages & Viz</p>
+      <div class="skill-items">
+        <span class="skill-pill">Python</span>
+        <span class="skill-pill">Streamlit</span>
+        <span class="skill-pill">PowerBI</span>
+        <span class="skill-pill">Tableau</span>
+        <span class="skill-pill">Matplotlib</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">AI & Agents</p>
+      <div class="skill-items">
+        <span class="skill-pill">LLM APIs</span>
+        <span class="skill-pill">Agentic Systems</span>
+        <span class="skill-pill">Prompt Eng.</span>
+        <span class="skill-pill">Orchestration</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Simulation</p>
+      <div class="skill-items">
+        <span class="skill-pill">Mesa (ABM)</span>
+        <span class="skill-pill">Agent-Based Models</span>
+        <span class="skill-pill">Optimization</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Business</p>
+      <div class="skill-items">
+        <span class="skill-pill">Strategy</span>
+        <span class="skill-pill">EU Funding</span>
+        <span class="skill-pill">Market Research</span>
+        <span class="skill-pill">Sustainability Practices</span>
+        <span class="skill-pill">Internationalisation Strategy</span>
+        <span class="skill-pill">Digital Transformation</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <p class="skill-category">Soft Skills</p>
+      <div class="skill-items">
+        <span class="skill-pill">Project Management</span>
+        <span class="skill-pill">Stakeholder Mgmt</span>
+        <span class="skill-pill">Research</span>
+        <span class="skill-pill">Entrepreneurial Thinking</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-bg" id="contact">
+  <div class="contact-inner">
+    <div>
+      <h2 class="contact-title"><em>Get in touch.</em></h2>
+      <p class="contact-sub">Always happy to connect — whether it's about a role, a project, a collaboration, or just a good conversation. Don't hesitate to reach out.</p>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:david.carrillo@student.ie.edu" class="contact-link">
+        <span class="contact-link-type">Email</span>
+        <span class="contact-link-val">david.carrillo@student.ie.edu</span>
+      </a>
+      <a href="https://linkedin.com/in/davidcarrilloaguilera" target="_blank" class="contact-link">
+        <span class="contact-link-type">LinkedIn</span>
+        <span class="contact-link-val">davidcarrilloaguilera</span>
+      </a>
+      <a href="https://github.com/davidcarrilloag" target="_blank" class="contact-link">
+        <span class="contact-link-type">GitHub</span>
+        <span class="contact-link-val">davidcarrilloag</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="footer-copy">© 2025 David Carrillo Aguilera</span>
+  <span class="footer-copy">Madrid · IE University MBDS</span>
+</footer>
+
+</body>
+</html>
