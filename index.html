@@ -324,6 +324,24 @@ nav {
   margin-bottom: 52px;
 }
 
+.repo-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: var(--faint);
+  margin-top: -38px;
+  margin-bottom: 44px;
+  padding: 7px 14px;
+  border: 0.5px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg2);
+}
+.repo-hint-arrow { color: var(--accent); font-size: 12px; }
+.repo-hint-note { opacity: 0.75; }
+
 /* PROJECTS */
 .projects-list { display: flex; flex-direction: column; }
 
@@ -665,6 +683,81 @@ footer {
   nav { padding: 0 24px; }
   footer { padding: 20px 24px; flex-direction: column; gap: 8px; }
 }
+
+/* LIGHTBOX */
+.proj-gallery-img img { cursor: zoom-in; }
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+.lightbox.open { display: flex; opacity: 1; }
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 82vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+}
+.lightbox-caption {
+  position: absolute;
+  bottom: 26px;
+  left: 0; right: 0;
+  text-align: center;
+  color: rgba(255,255,255,0.78);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  padding: 0 60px;
+}
+.lightbox-counter {
+  position: absolute;
+  top: 26px; left: 30px;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+.lightbox-close {
+  position: absolute;
+  top: 16px; right: 22px;
+  width: 42px; height: 42px;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  font-size: 30px;
+  cursor: pointer;
+  line-height: 1;
+}
+.lightbox-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 52px; height: 52px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+.lightbox-prev { left: 24px; }
+.lightbox-next { right: 24px; }
+@media (max-width: 760px) {
+  .lightbox-nav { width: 42px; height: 42px; font-size: 22px; }
+  .lightbox-prev { left: 10px; }
+  .lightbox-next { right: 10px; }
+  .lightbox-caption { padding: 0 20px; }
+}
 </style>
 </head>
 <body>
@@ -686,7 +779,7 @@ footer {
     <div class="hero-left">
       <div class="hero-title">David Carrillo</div>
       <div class="hero-title-last">Aguilera</div>
-      <p class="hero-bio">Economics and international business graduate, now deep into ML, data engineering, and AI systems. Entrepreneurial by nature — drawn to the bridge between business strategy and AI-driven products.</p>
+      <p class="hero-bio">Economics and international business graduate, now deep into ML, data engineering, and AI systems. Entrepreneurial by nature, drawn to the bridge between business strategy and AI-driven products.</p>
       <div class="hero-ctas">
         <a href="#projects" class="btn btn-primary">See my work</a>
         <a href="https://linkedin.com/in/davidcarrilloaguilera" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
@@ -712,15 +805,19 @@ footer {
     </div>
     <div class="stat-cell">
       <div class="stat-num">Top <em>10%</em></div>
-      <div class="stat-desc">IE Advanced Tech Track — invitation only</div>
+      <div class="stat-desc">IE Advanced Tech Track, invitation only</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num"><em>🏆</em> 2025</div>
-      <div class="stat-desc">Winner, BMC Helix Agentic AI Hackathon</div>
+      <div class="stat-num">Winner <em>2025</em></div>
+      <div class="stat-desc">BMC Helix Agentic AI Hackathon</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num">+2,<em>000</em></div>
-      <div class="stat-desc">SMEs assisted in internationalisation & sustainability</div>
+      <div class="stat-num">Finalist <em>2026</em></div>
+      <div class="stat-desc">IEU x Iberdrola Sustainability Datathon</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">2,<em>000+</em></div>
+      <div class="stat-desc">SMEs supported across Spain</div>
     </div>
     <!-- duplicate for seamless loop -->
     <div class="stat-cell">
@@ -729,15 +826,19 @@ footer {
     </div>
     <div class="stat-cell">
       <div class="stat-num">Top <em>10%</em></div>
-      <div class="stat-desc">IE Advanced Tech Track — invitation only</div>
+      <div class="stat-desc">IE Advanced Tech Track, invitation only</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num"><em>🏆</em> 2025</div>
-      <div class="stat-desc">Winner, BMC Helix Agentic AI Hackathon</div>
+      <div class="stat-num">Winner <em>2025</em></div>
+      <div class="stat-desc">BMC Helix Agentic AI Hackathon</div>
     </div>
     <div class="stat-cell">
-      <div class="stat-num">+2,<em>000</em></div>
-      <div class="stat-desc">SMEs assisted in internationalisation & sustainability</div>
+      <div class="stat-num">Finalist <em>2026</em></div>
+      <div class="stat-desc">IEU x Iberdrola Sustainability Datathon</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">2,<em>000+</em></div>
+      <div class="stat-desc">SMEs supported across Spain</div>
     </div>
   </div>
 </div>
@@ -746,18 +847,81 @@ footer {
 <div class="section" id="projects">
   <p class="eyebrow-label">Selected work</p>
   <h2 class="section-title">Things I've built.</h2>
-  <p class="section-sub">From agentic AI systems to end-to-end ML pipelines — real projects, real decisions, real code.</p>
+  <p class="section-sub">From agentic AI systems to end-to-end ML pipelines. Real projects, real decisions, real code.</p>
+  <p class="repo-hint">Click a project title to open its repository <span class="repo-hint-arrow">↗</span> <span class="repo-hint-note">(where available)</span></p>
   <div class="projects-list">
 
-    <!-- PROJECT 01: VenturePulse -->
-    <a class="project-row" href="https://github.com/davidcarrilloag/mlops-venturepulse" target="_blank">
+    <!-- PROJECT 01: Iberdrola Sustainability Datathon -->
+    <div class="project-row project-row-expanded">
       <span class="proj-num">01</span>
+      <div class="proj-body">
+        <div class="proj-logo-row">
+          <img src="assets/images/iberdrola-logo.jpg" alt="Iberdrola" class="proj-logo" style="height: 80px;" />
+        </div>
+        <h3 class="proj-title"><a href="https://github.com/nicolaswilches/iberdrola-ev-network" target="_blank" style="color: inherit; text-decoration: none;">EV Charging Network Design: IEU Sustainability Datathon (Finalist) <span class="proj-arrow" style="font-size: 16px;">↗</span></a></h3>
+        <p class="proj-desc">Built an end-to-end EV charging network analysis for the IE University x Iberdrola Sustainability Datathon, designing Spain's 2027 interurban charging infrastructure using real traffic, road, and grid data. Ingested and cleaned multi-source datasets (traffic flows, road segments, existing fast chargers, and DSO grid capacity), then projected 2027 EV demand and modeled long-distance EV trips on AP/A/N corridors. Optimized station placement with AFIR spacing rules and matched proposed sites to substation capacity, delivering data-backed outputs: a proposed station network, a friction-point heatmap, and an interactive visualization. The project combined geospatial analysis, demand forecasting, and infrastructure optimization to produce a practical EV rollout plan aligned with regulatory spacing and grid constraints. Recognized as a finalist among all competing teams.</p>
+        <div class="proj-tags" style="margin-bottom: 22px;">
+          <span class="proj-tag featured">Finalist</span>
+          <span class="proj-tag featured">Geospatial</span>
+          <span class="proj-tag">Sustainability</span>
+          <span class="proj-tag">Demand Forecasting</span>
+          <span class="proj-tag">Optimization</span>
+          <span class="proj-tag">Python</span>
+        </div>
+        <div class="proj-gallery" style="grid-template-columns: 1fr 1fr 1fr;">
+          <div class="proj-gallery-img">
+            <img src="assets/images/iberdrola1.jpg" alt="IEU Sustainability Datathon, finalist award" />
+            <p class="proj-gallery-caption">Finalist · IEU Sustainability Datathon · Madrid</p>
+          </div>
+          <div class="proj-gallery-img">
+            <img src="assets/images/iberdrola2.jpg" alt="IEU Sustainability Datathon, presenting on stage" />
+            <p class="proj-gallery-caption">Presenting our solution · IE University</p>
+          </div>
+          <div class="proj-gallery-img">
+            <img src="assets/images/iberdrola3.jpg" alt="IEU Sustainability Datathon, winners on stage" />
+            <p class="proj-gallery-caption">Iberdrola Challenge · Winners stage</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 02: BMC Helix -->
+    <div class="project-row project-row-expanded">
+      <span class="proj-num">02</span>
+      <div class="proj-body">
+        <div class="proj-logo-row">
+          <img src="assets/images/bmchelixlogo.png" alt="BMC Helix" class="proj-logo" style="height: 32px;" />
+        </div>
+        <h3 class="proj-title">Proactive Security Orchestration Agent (Winner 2025)</h3>
+        <p class="proj-desc">Built an agentic AI system on top of BMC Helix that autonomously monitors IT infrastructure, detects anomalies, and orchestrates incident responses without human intervention. The agent continuously ingests telemetry data across services, correlates signals to identify potential threats before they escalate, and triggers automated remediation workflows (ticket creation, service restarts, escalation routing). Designed around a multi-agent architecture where a coordinator agent delegates to specialized sub-agents for log analysis, risk scoring, and action execution. Won first place at IE University, Madrid (2025).</p>
+        <div class="proj-tags" style="margin-bottom: 22px;">
+          <span class="proj-tag featured">Agentic AI</span>
+          <span class="proj-tag featured">Hackathon Winner</span>
+          <span class="proj-tag">Orchestration</span>
+          <span class="proj-tag">Security</span>
+        </div>
+        <div class="proj-gallery">
+          <div class="proj-gallery-img">
+            <img src="assets/images/bmchelix1.jpg" alt="BMC Helix Hackathon, award ceremony" />
+            <p class="proj-gallery-caption">Award ceremony · IE University · Madrid</p>
+          </div>
+          <div class="proj-gallery-img">
+            <img src="assets/images/bmchelix2.jpg" alt="BMC Helix Hackathon, during the event" />
+            <p class="proj-gallery-caption">During the hackathon</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECT 03: VenturePulse -->
+    <a class="project-row" href="https://github.com/davidcarrilloag/mlops-venturepulse" target="_blank">
+      <span class="proj-num">03</span>
       <div class="proj-body">
         <div class="proj-logo-row">
           <img src="assets/images/venturepulse_logo.png" alt="VenturePulse" class="proj-logo" style="height: 32px;" />
         </div>
         <h3 class="proj-title">VenturePulse</h3>
-        <p class="proj-desc">ML-powered startup traction prediction platform. Scores startups on their probability of achieving high traction within 18 months — helping investors cut through noise and founders reach the right people. End-to-end MLOps pipeline from ingestion to deployment and monitoring.</p>
+        <p class="proj-desc">ML-powered startup traction prediction platform. Scores startups on their probability of achieving high traction within 18 months, helping investors cut through noise and founders reach the right people. End-to-end MLOps pipeline from ingestion to deployment and monitoring.</p>
         <div class="proj-tags">
           <span class="proj-tag featured">MLOps</span>
           <span class="proj-tag featured">Startup</span>
@@ -770,43 +934,15 @@ footer {
       <span class="proj-arrow">↗</span>
     </a>
 
-    <!-- PROJECT 02: BMC Helix -->
-    <div class="project-row project-row-expanded">
-      <span class="proj-num">02</span>
-      <div class="proj-body">
-        <div class="proj-logo-row">
-          <img src="assets/images/bmchelixlogo.png" alt="BMC Helix" class="proj-logo" style="height: 32px;" />
-        </div>
-        <h3 class="proj-title">Proactive Security Orchestration Agent (Winner 2025)</h3>
-        <p class="proj-desc">Built an agentic AI system on top of BMC Helix that autonomously monitors IT infrastructure, detects anomalies, and orchestrates incident responses — without human intervention. The agent continuously ingests telemetry data across services, correlates signals to identify potential threats before they escalate, and triggers automated remediation workflows (ticket creation, service restarts, escalation routing). Designed around a multi-agent architecture where a coordinator agent delegates to specialized sub-agents for log analysis, risk scoring, and action execution. Won first place at IE University, Madrid (2025).</p>
-        <div class="proj-tags" style="margin-bottom: 22px;">
-          <span class="proj-tag featured">Agentic AI</span>
-          <span class="proj-tag featured">Hackathon Winner</span>
-          <span class="proj-tag">Orchestration</span>
-          <span class="proj-tag">Security</span>
-        </div>
-        <div class="proj-gallery">
-          <div class="proj-gallery-img">
-            <img src="assets/images/bmchelix1.jpg" alt="BMC Helix Hackathon — award ceremony" />
-            <p class="proj-gallery-caption">Award ceremony · IE University · Madrid</p>
-          </div>
-          <div class="proj-gallery-img">
-            <img src="assets/images/bmchelix2.jpg" alt="BMC Helix Hackathon — during the event" />
-            <p class="proj-gallery-caption">During the hackathon</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PROJECT 03: AutoTrader -->
+    <!-- PROJECT 04: AutoTrader -->
     <a class="project-row" href="https://github.com/davidcarrilloag/python-2-group-project" target="_blank">
-      <span class="proj-num">03</span>
+      <span class="proj-num">04</span>
       <div class="proj-body">
         <div class="proj-logo-row">
           <img src="assets/images/autotrader.png" alt="AutoTrader" class="proj-logo" />
         </div>
         <h3 class="proj-title">AutoTrader</h3>
-        <p class="proj-desc">Interactive car marketplace app built with Python and Streamlit. Lets users search, filter, and explore vehicle listings with dynamic visualisations — price distributions, mileage trends, and brand comparisons. Deployed as a live web app, demonstrating end-to-end data product development from data wrangling to a polished user-facing interface.</p>
+        <p class="proj-desc">Interactive car marketplace app built with Python and Streamlit. Lets users search, filter, and explore vehicle listings with dynamic visualisations: price distributions, mileage trends, and brand comparisons. Deployed as a live web app, demonstrating end-to-end data product development from data wrangling to a polished user-facing interface.</p>
         <div class="proj-tags">
           <span class="proj-tag featured">Streamlit</span>
           <span class="proj-tag featured">Data App</span>
@@ -818,15 +954,15 @@ footer {
       <span class="proj-arrow">↗</span>
     </a>
 
-    <!-- PROJECT 04: Madrid Housing -->
+    <!-- PROJECT 05: Madrid Housing -->
     <a class="project-row" href="https://github.com/davidcarrilloag/madrid_housing_engine" target="_blank">
-      <span class="proj-num">04</span>
+      <span class="proj-num">05</span>
       <div class="proj-body">
         <div class="proj-logo-row">
           <img src="assets/images/housinglogo.png" alt="Madrid Housing Decision Engine" class="proj-logo" />
         </div>
         <h3 class="proj-title">Madrid Housing Decision Engine</h3>
-        <p class="proj-desc">Full pipeline architecture for residential property analysis in Madrid. Raw listing data flows through NiFi for ingestion, is stored in MinIO as a data lake, processed at scale with Spark, and surfaced through a decision engine that estimates fair prices and flags undervalued properties — built end-to-end with production-grade data infrastructure.</p>
+        <p class="proj-desc">Full pipeline architecture for residential property analysis in Madrid. Raw listing data flows through NiFi for ingestion, is stored in MinIO as a data lake, processed at scale with Spark, and surfaced through a decision engine that estimates fair prices and flags undervalued properties, built end-to-end with production-grade data infrastructure.</p>
         <div class="proj-tags">
           <span class="proj-tag featured">Full Pipeline</span>
           <span class="proj-tag featured">Real Estate</span>
@@ -840,7 +976,6 @@ footer {
       <span class="proj-arrow">↗</span>
     </a>
 
-
   </div>
 </div>
 
@@ -853,18 +988,29 @@ footer {
   <div class="exp-list">
 
     <div class="exp-row">
-      <div class="exp-meta">2025 — 2026<br>Madrid, Spain</div>
+      <div class="exp-meta">2025 - 2026<br>Madrid, Spain</div>
       <div>
         <img src="assets/images/ielogo.png" alt="IE University" class="exp-logo" />
         <p class="exp-company">IE University</p>
         <p class="exp-role">MBDS · Advanced Tech Track · GPA 3.7 / 4</p>
-        <p class="exp-desc">The Master in Business Analytics and Data Science at IE University is a technically rigorous program covering the full data science stack — from statistical modelling and machine learning to data engineering, cloud infrastructure, and AI product development. The curriculum bridges technical depth with business application, preparing graduates to lead data-driven decisions in real organisations.<br><br>Selected for the Advanced Tech Track, an invitation-only stream for the top ~10% of the cohort. The ATT goes significantly deeper into advanced ML, MLOps, large-scale data systems, and agentic AI — taught by senior industry practitioners including IBMers and AI researchers. It runs in parallel to the main programme and is designed for students who want to operate at the frontier of applied AI.</p>
+        <p class="exp-desc">The Master in Business Analytics and Data Science at IE University is a technically rigorous program covering the full data science stack, from statistical modelling and machine learning to data engineering, cloud infrastructure, and AI product development. The curriculum bridges technical depth with business application, preparing graduates to lead data-driven decisions in real organisations.<br><br>Selected for the Advanced Tech Track, an invitation-only stream for the top ~10% of the cohort. The ATT goes significantly deeper into advanced ML, MLOps, large-scale data systems, and agentic AI, taught by senior industry practitioners including IBMers and AI researchers. It runs in parallel to the main programme and is designed for students who want to operate at the frontier of applied AI.</p>
         <img src="assets/images/ie.jpg" alt="IE University" style="margin-top: 20px; width: 100%; max-width: 480px; border-radius: 8px; border: 0.5px solid var(--border);" />
       </div>
     </div>
 
     <div class="exp-row">
-      <div class="exp-meta">Sep 2024 — May 2025<br>Alcalá de Henares</div>
+      <div class="exp-meta">Apr 2026 - Jul 2026<br>Madrid, Spain</div>
+      <div>
+        <img src="assets/images/kearneylogo.png" alt="Kearney" class="exp-logo" style="height: 26px; margin-top: 6px;" />
+        <p class="exp-company">Kearney</p>
+        <p class="exp-role">Business Analyst Intern</p>
+        <p class="exp-desc">Kearney is a leading global management consulting firm, advising many of the world's largest companies and institutions on strategy, operations, and digital transformation. Within its analytics practice, I am building an AI tool for CAF (Construcciones y Auxiliares de Ferrocarriles), one of the world's leading manufacturers of trains, trams, and metro systems.<br><br>The project is a smart assistant for train maintenance technicians, giving them a single place to access everything they need and to interact with a team of specialised AI agents. To power it, I designed a knowledge graph that unifies the full structure of a train, merging its parts and components with the many different data formats and platforms used across the fleet (such as CAF's LeadMind telemetry system). This turns fragmented technical information into one connected, queryable source, so mechanics get accurate, context-aware answers in seconds.</p>
+        <img src="assets/images/kearneymyself.png" alt="Kearney" style="margin-top: 20px; width: 100%; max-width: 300px; border-radius: 8px; border: 0.5px solid var(--border);" />
+      </div>
+    </div>
+
+    <div class="exp-row">
+      <div class="exp-meta">Sep 2024 - May 2025<br>Alcalá de Henares</div>
       <div>
         <img src="assets/images/anovalogo.png" alt="Anova IT Consulting" class="exp-logo" />
         <p class="exp-company">Anova IT Consulting</p>
@@ -882,7 +1028,7 @@ footer {
     </div>
 
     <div class="exp-row">
-      <div class="exp-meta">2023 — 2024<br>Dublin, Ireland</div>
+      <div class="exp-meta">2023 - 2024<br>Dublin, Ireland</div>
       <div>
         <img src="assets/images/dculogo.png" alt="Dublin City University" class="exp-logo" style="height: 90px;" />
         <p class="exp-company">Dublin City University</p>
@@ -892,7 +1038,7 @@ footer {
     </div>
 
     <div class="exp-row">
-      <div class="exp-meta">2021 — 2025<br>Alcalá de Henares</div>
+      <div class="exp-meta">2021 - 2025<br>Alcalá de Henares</div>
       <div>
         <img src="assets/images/uahlogo.png" alt="Universidad de Alcalá" class="exp-logo" />
         <p class="exp-company">Universidad de Alcalá</p>
@@ -1000,7 +1146,7 @@ footer {
   <div class="contact-inner">
     <div>
       <h2 class="contact-title"><em>Get in touch.</em></h2>
-      <p class="contact-sub">Always happy to connect — whether it's about a role, a project, a collaboration, or just a good conversation. Don't hesitate to reach out.</p>
+      <p class="contact-sub">Always happy to connect, whether it's about a role, a project, a collaboration, or just a good conversation. Don't hesitate to reach out.</p>
     </div>
     <div class="contact-links">
       <a href="mailto:david.carrillo@student.ie.edu" class="contact-link">
@@ -1023,6 +1169,79 @@ footer {
   <span class="footer-copy">© 2025 David Carrillo Aguilera</span>
   <span class="footer-copy">Madrid · IE University MBDS</span>
 </footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <span class="lightbox-counter" id="lightboxCounter"></span>
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close">×</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">›</button>
+  <p class="lightbox-caption" id="lightboxCaption"></p>
+</div>
+
+<script>
+(function(){
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightboxImg');
+  var lbCap = document.getElementById('lightboxCaption');
+  var lbCount = document.getElementById('lightboxCounter');
+  var prevBtn = document.getElementById('lightboxPrev');
+  var nextBtn = document.getElementById('lightboxNext');
+  var current = [];
+  var index = 0;
+
+  function render(){
+    var item = current[index];
+    if(!item) return;
+    lbImg.src = item.src;
+    lbImg.alt = item.alt || '';
+    lbCap.textContent = item.caption || '';
+    var many = current.length > 1;
+    lbCount.textContent = many ? (index + 1) + ' / ' + current.length : '';
+    prevBtn.style.display = many ? 'flex' : 'none';
+    nextBtn.style.display = many ? 'flex' : 'none';
+  }
+  function open(group, i){
+    current = group; index = i; render();
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function close(){
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function step(d){
+    index = (index + d + current.length) % current.length;
+    render();
+  }
+
+  document.querySelectorAll('.proj-gallery').forEach(function(gallery){
+    var figs = Array.prototype.slice.call(gallery.querySelectorAll('.proj-gallery-img'));
+    var group = figs.map(function(fig){
+      var img = fig.querySelector('img');
+      var cap = fig.querySelector('.proj-gallery-caption');
+      return { src: img.getAttribute('src'), alt: img.getAttribute('alt'), caption: cap ? cap.textContent : '' };
+    });
+    figs.forEach(function(fig, i){
+      var img = fig.querySelector('img');
+      if(!img) return;
+      img.addEventListener('click', function(){ open(group, i); });
+    });
+  });
+
+  prevBtn.addEventListener('click', function(e){ e.stopPropagation(); step(-1); });
+  nextBtn.addEventListener('click', function(e){ e.stopPropagation(); step(1); });
+  document.getElementById('lightboxClose').addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') close();
+    else if(e.key === 'ArrowLeft') step(-1);
+    else if(e.key === 'ArrowRight') step(1);
+  });
+})();
+</script>
 
 </body>
 </html>
